@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Maths Aide - Educational Resources</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            color: white;
+            margin-bottom: 50px;
+            padding: 30px 0;
+        }
+
+        header h1 {
+            font-size: 3em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        header p {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+
+        .subjects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+
+        .subject-card {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+
+        .subject-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+        }
+
+        .subject-icon {
+            font-size: 3em;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        .subject-title {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+
+        .subject-description {
+            color: #666;
+            font-size: 0.9em;
+            text-align: center;
+            line-height: 1.5;
+        }
+
+        .resource-count {
+            margin-top: 15px;
+            text-align: center;
+            color: #667eea;
+            font-weight: bold;
+            font-size: 0.9em;
+        }
+
+        footer {
+            text-align: center;
+            color: white;
+            padding: 30px 0;
+            opacity: 0.9;
+        }
+
+        footer a {
+            color: white;
+            text-decoration: underline;
+        }
+
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 2em;
+            }
+
+            .subjects-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>📚 Maths Aide</h1>
+            <p>Your comprehensive educational resource hub</p>
+        </header>
+
+        <div class="subjects-grid" id="subjectsGrid">
+            <!-- Cards will be dynamically populated -->
+        </div>
+
+        <footer>
+            <p>Educational Resources Repository</p>
+            <p><a href="https://github.com/reerluuqa/Maths-Aide" target="_blank">View on GitHub</a></p>
+        </footer>
+    </div>
+
+    <script>
+        const subjects = [
+            {
+                name: 'Mathematics',
+                folder: 'maths',
+                icon: '🔢',
+                description: 'Algebra, geometry, calculus, and more'
+            },
+            {
+                name: 'Biology',
+                folder: 'biology',
+                icon: '🧬',
+                description: 'Life sciences, cells, genetics, and ecosystems'
+            },
+            {
+                name: 'Chemistry',
+                folder: 'chemistry',
+                icon: '⚗️',
+                description: 'Elements, reactions, and molecular structures'
+            },
+            {
+                name: 'Physics',
+                folder: 'physics',
+                icon: '⚛️',
+                description: 'Motion, energy, waves, and quantum mechanics'
+            },
+            {
+                name: 'Geography',
+                folder: 'geography',
+                icon: '🌍',
+                description: 'Earth sciences, climate, and human geography'
+            },
+            {
+                name: 'Religious Education',
+                folder: 'religious-education',
+                icon: '🕊️',
+                description: 'World religions, ethics, and philosophy'
+            },
+            {
+                name: 'Computer Science',
+                folder: 'computer-science',
+                icon: '💻',
+                description: 'Programming, algorithms, and software development'
+            },
+            {
+                name: 'Languages',
+                folder: 'languages',
+                icon: '🌐',
+                description: 'Foreign languages and linguistics'
+            },
+            {
+                name: 'History',
+                folder: 'history',
+                icon: '📜',
+                description: 'Historical events, cultures, and civilizations'
+            },
+            {
+                name: 'General Resources',
+                folder: 'generic',
+                icon: '📖',
+                description: 'Cross-curricular and general study materials'
+            }
+        ];
+
+        async function checkFolderResources(folder) {
+            try {
+                const response = await fetch(`${folder}/index.json`);
+                if (response.ok) {
+                    const data = await response.json();
+                    return data.resources ? data.resources.length : 0;
+                }
+            } catch (e) {
+                // Folder doesn't have index.json yet
+            }
+            return 0;
+        }
+
+        async function renderSubjects() {
+            const grid = document.getElementById('subjectsGrid');
+            
+            for (const subject of subjects) {
+                const resourceCount = await checkFolderResources(subject.folder);
+                
+                const card = document.createElement('a');
+                card.className = 'subject-card';
+                card.href = `${subject.folder}/index.html`;
+                
+                card.innerHTML = `
+                    <div class="subject-icon">${subject.icon}</div>
+                    <div class="subject-title">${subject.name}</div>
+                    <div class="subject-description">${subject.description}</div>
+                    <div class="resource-count">${resourceCount > 0 ? `${resourceCount} resources available` : 'Coming soon'}</div>
+                `;
+                
+                grid.appendChild(card);
+            }
+        }
+
+        renderSubjects();
+    </script>
+</body>
+</html>
