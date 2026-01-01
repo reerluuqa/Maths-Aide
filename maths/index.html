@@ -5,13 +5,116 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Maths - Maths Aide</title>
   <style>
-    body { font-family: Arial, sans-serif; margin: 40px; line-height: 1.6; }
-    a { color: #2b5ad5; }
+    :root {
+      --bg: #f6f5ff;
+      --card: #ffffff;
+      --ink: #2a2a2a;
+      --muted: #646b7a;
+      --accent: #5a5bd6;
+      --accent-dark: #3f40b5;
+      --border: #e5e6f3;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "Segoe UI", Tahoma, Arial, sans-serif;
+      background: var(--bg);
+      color: var(--ink);
+      line-height: 1.6;
+    }
+    header {
+      padding: 32px 20px 8px;
+      text-align: center;
+    }
+    header h1 {
+      margin: 0 0 6px;
+      font-size: 2.2rem;
+    }
+    header p {
+      margin: 0;
+      color: var(--muted);
+    }
+    main {
+      max-width: 980px;
+      margin: 0 auto;
+      padding: 24px 20px 40px;
+    }
+    .grid {
+      display: grid;
+      gap: 20px;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+    }
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 18px 18px 16px;
+      box-shadow: 0 10px 20px rgba(33, 35, 91, 0.08);
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .card h2 {
+      margin: 0;
+      font-size: 1.1rem;
+    }
+    .card p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+    .card a {
+      margin-top: 6px;
+      color: var(--accent);
+      font-weight: 600;
+      text-decoration: none;
+    }
+    .card a:hover {
+      color: var(--accent-dark);
+      text-decoration: underline;
+    }
+    .back {
+      display: inline-block;
+      margin-top: 26px;
+      color: var(--accent);
+      text-decoration: none;
+      font-weight: 600;
+    }
+    .back:hover {
+      color: var(--accent-dark);
+      text-decoration: underline;
+    }
   </style>
 </head>
 <body>
-  <h1>Maths</h1>
-  <p>This section will contain resources for Maths.</p>
-  <p><a href="../index.html">Back to home</a></p>
+  <header>
+    <h1>Maths</h1>
+    <p>Pick a resource to start learning.</p>
+  </header>
+  <main>
+    <section class="grid">
+      <article class="card">
+        <h2>Algebra Quiz App</h2>
+        <p>Interactive quiz to test algebra skills.</p>
+        <a href="algebra-quiz-app.html">Open resource</a>
+      </article>
+      <article class="card">
+        <h2>Algebra Practice App</h2>
+        <p>Practice problems with instant feedback.</p>
+        <a href="algebra_practice_app.html">Open resource</a>
+      </article>
+      <article class="card">
+        <h2>Simple Algebra Problems</h2>
+        <p>Quick practice set for foundational algebra.</p>
+        <a href="simple algebra problems.html">Open resource</a>
+      </article>
+      <article class="card">
+        <h2>Simple Algebra Problems 2</h2>
+        <p>More practice problems with mixed difficulty.</p>
+        <a href="simple algebra problems2.html">Open resource</a>
+      </article>
+    </section>
+    <a class="back" href="../index.html">Back to home</a>
+  </main>
 </body>
 </html>
