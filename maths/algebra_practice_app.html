@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Algebra Simplification Practice</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            max-width: 700px;
+            width: 100%;
+            padding: 40px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        h1 {
+            color: #667eea;
+            font-size: 2em;
+            margin-bottom: 10px;
+        }
+
+        .progress-bar {
+            background: #e0e0e0;
+            border-radius: 10px;
+            height: 10px;
+            margin-bottom: 20px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            height: 100%;
+            transition: width 0.3s ease;
+        }
+
+        .question-section {
+            margin-bottom: 30px;
+        }
+
+        .question-number {
+            color: #764ba2;
+            font-weight: bold;
+            font-size: 0.9em;
+            margin-bottom: 15px;
+        }
+
+        .question {
+            font-size: 1.8em;
+            color: #333;
+            margin-bottom: 25px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            text-align: center;
+            font-family: 'Courier New', monospace;
+        }
+
+        .input-section {
+            margin-bottom: 20px;
+        }
+
+        input {
+            width: 100%;
+            padding: 15px;
+            font-size: 1.2em;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-family: 'Courier New', monospace;
+            transition: border-color 0.3s;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        button {
+            width: 100%;
+            padding: 15px;
+            font-size: 1.1em;
+            font-weight: bold;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s;
+            color: white;
+        }
+
+        .submit-btn {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .submit-btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .next-btn {
+            background: #10b981;
+            margin-top: 15px;
+        }
+
+        .next-btn:hover {
+            background: #059669;
+        }
+
+        .feedback {
+            margin-top: 20px;
+            padding: 20px;
+            border-radius: 10px;
+            display: none;
+        }
+
+        .feedback.correct {
+            background: #d1fae5;
+            border: 2px solid #10b981;
+            display: block;
+        }
+
+        .feedback.incorrect {
+            background: #fee2e2;
+            border: 2px solid #ef4444;
+            display: block;
+        }
+
+        .feedback-title {
+            font-weight: bold;
+            font-size: 1.2em;
+            margin-bottom: 10px;
+        }
+
+        .feedback.correct .feedback-title {
+            color: #059669;
+        }
+
+        .feedback.incorrect .feedback-title {
+            color: #dc2626;
+        }
+
+        .explanation {
+            color: #333;
+            line-height: 1.6;
+            margin-top: 10px;
+        }
+
+        .answer-display {
+            font-family: 'Courier New', monospace;
+            background: white;
+            padding: 10px;
+            border-radius: 5px;
+            margin: 10px 0;
+            font-size: 1.1em;
+        }
+
+        .completion {
+            text-align: center;
+            display: none;
+        }
+
+        .completion.show {
+            display: block;
+        }
+
+        .completion h2 {
+            color: #667eea;
+            font-size: 2.5em;
+            margin-bottom: 20px;
+        }
+
+        .score {
+            font-size: 3em;
+            color: #764ba2;
+            font-weight: bold;
+            margin: 20px 0;
+        }
+
+        .restart-btn {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            max-width: 300px;
+            margin: 20px auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🧮 Algebra Simplification</h1>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+        </div>
+
+        <div id="quizSection">
+            <div class="question-section">
+                <div class="question-number" id="questionNumber"></div>
+                <div class="question" id="questionText"></div>
+            </div>
+
+            <div class="input-section">
+                <input type="text" id="answerInput" placeholder="Enter your simplified answer" autocomplete="off">
+            </div>
+
+            <button class="submit-btn" id="submitBtn">Check Answer</button>
+
+            <div class="feedback" id="feedback">
+                <div class="feedback-title" id="feedbackTitle"></div>
+                <div class="explanation" id="explanation"></div>
+            </div>
+
+            <button class="next-btn" id="nextBtn" style="display: none;">Next Question →</button>
+        </div>
+
+        <div class="completion" id="completion">
+            <h2>🎉 Quiz Complete!</h2>
+            <div class="score" id="finalScore"></div>
+            <p style="color: #666; font-size: 1.2em; margin-bottom: 20px;">Great work on practicing algebra!</p>
+            <button class="restart-btn" id="restartBtn">Start Over</button>
+        </div>
+    </div>
+
+    <script>
+        const questions = [
+            {
+                question: "4x(a + b + 2c)",
+                answer: "4ax + 4bx + 8cx",
+                explanation: "Distribute 4x to each term inside the parentheses: 4x·a = 4ax, 4x·b = 4bx, 4x·2c = 8cx"
+            },
+            {
+                question: "3m(x - 3y + 2z)",
+                answer: "3mx - 9my + 6mz",
+                explanation: "Distribute 3m to each term: 3m·x = 3mx, 3m·(-3y) = -9my, 3m·2z = 6mz"
+            },
+            {
+                question: "-2a(p - q - r + s)",
+                answer: "-2ap + 2aq + 2ar - 2as",
+                explanation: "Distribute -2a to each term: -2a·p = -2ap, -2a·(-q) = +2aq, -2a·(-r) = +2ar, -2a·s = -2as"
+            },
+            {
+                question: "x(x² + 3x - 2)",
+                answer: "x³ + 3x² - 2x",
+                explanation: "Distribute x to each term: x·x² = x³, x·3x = 3x², x·(-2) = -2x"
+            },
+            {
+                question: "-3m(m² - 2m + 4)",
+                answer: "-3m³ + 6m² - 12m",
+                explanation: "Distribute -3m to each term: -3m·m² = -3m³, -3m·(-2m) = +6m², -3m·4 = -12m"
+            },
+            {
+                question: "-2a(3a² + 4a - 2)",
+                answer: "-6a³ - 8a² + 4a",
+                explanation: "Distribute -2a to each term: -2a·3a² = -6a³, -2a·4a = -8a², -2a·(-2) = +4a"
+            },
+            {
+                question: "u²(2u³ + 5u² - 4u - 3)",
+                answer: "2u⁵ + 5u⁴ - 4u³ - 3u²",
+                explanation: "Distribute u² to each term: u²·2u³ = 2u⁵, u²·5u² = 5u⁴, u²·(-4u) = -4u³, u²·(-3) = -3u²"
+            },
+            {
+                question: "3d²(d² + 4d + 1)",
+                answer: "3d⁴ + 12d³ + 3d²",
+                explanation: "Distribute 3d² to each term: 3d²·d² = 3d⁴, 3d²·4d = 12d³, 3d²·1 = 3d²"
+            },
+            {
+                question: "-4m²(m² - 2m - 3)",
+                answer: "-4m⁴ + 8m³ + 12m²",
+                explanation: "Distribute -4m² to each term: -4m²·m² = -4m⁴, -4m²·(-2m) = +8m³, -4m²·(-3) = +12m²"
+            },
+            {
+                question: "p³(3p² - 5)",
+                answer: "3p⁵ - 5p³",
+                explanation: "Distribute p³ to each term: p³·3p² = 3p⁵, p³·(-5) = -5p³"
+            },
+            {
+                question: "-4n²(n² + 2n - 1)",
+                answer: "-4n⁴ - 8n³ + 4n²",
+                explanation: "Distribute -4n² to each term: -4n²·n² = -4n⁴, -4n²·2n = -8n³, -4n²·(-1) = +4n²"
+            },
+            {
+                question: "am(3a - 7m)",
+                answer: "3a²m - 7am²",
+                explanation: "Distribute am to each term: am·3a = 3a²m, am·(-7m) = -7am²"
+            },
+            {
+                question: "-3ab(4a - b - 2)",
+                answer: "-12a²b + 3ab² + 6ab",
+                explanation: "Distribute -3ab to each term: -3ab·4a = -12a²b, -3ab·(-b) = +3ab², -3ab·(-2) = +6ab"
+            },
+            {
+                question: "-2uv(-3u² + 2v²)",
+                answer: "6u³v - 4uv³",
+                explanation: "Distribute -2uv to each term: -2uv·(-3u²) = +6u³v, -2uv·2v² = -4uv³"
+            },
+            {
+                question: "4m³(-2m² + m - 3)",
+                answer: "-8m⁵ + 4m⁴ - 12m³",
+                explanation: "Distribute 4m³ to each term: 4m³·(-2m²) = -8m⁵, 4m³·m = 4m⁴, 4m³·(-3) = -12m³"
+            },
+            {
+                question: "-5hk(h² - 3hk + 2k²)",
+                answer: "-5h³k + 15h²k² - 10hk³",
+                explanation: "Distribute -5hk to each term: -5hk·h² = -5h³k, -5hk·(-3hk) = +15h²k², -5hk·2k² = -10hk³"
+            },
+            {
+                question: "3p(2p² - p - q + 2q²)",
+                answer: "6p³ - 3p² - 3pq + 6pq²",
+                explanation: "Distribute 3p to each term: 3p·2p² = 6p³, 3p·(-p) = -3p², 3p·(-q) = -3pq, 3p·2q² = 6pq²"
+            },
+            {
+                question: "a²m(5a + 7m - 2)",
+                answer: "5a³m + 7a²m² - 2a²m",
+                explanation: "Distribute a²m to each term: a²m·5a = 5a³m, a²m·7m = 7a²m², a²m·(-2) = -2a²m"
+            },
+            {
+                question: "-4uv²(-2u² - 3uv - v²)",
+                answer: "8u³v² + 12u²v³ + 4uv⁴",
+                explanation: "Distribute -4uv² to each term: -4uv²·(-2u²) = +8u³v², -4uv²·(-3uv) = +12u²v³, -4uv²·(-v²) = +4uv⁴"
+            },
+            {
+                question: "2a²b³c(-3a + b - 2c)",
+                answer: "-6a³b³c + 2a²b⁴c - 4a²b³c²",
+                explanation: "Distribute 2a²b³c to each term: 2a²b³c·(-3a) = -6a³b³c, 2a²b³c·b = 2a²b⁴c, 2a²b³c·(-2c) = -4a²b³c²"
+            },
+            {
+                question: "a(a - m) - m(a + m)",
+                answer: "a² - 2am - m²",
+                explanation: "First distribute: a(a-m) = a²-am and m(a+m) = am+m². Then combine: a²-am-am-m² = a²-2am-m²"
+            },
+            {
+                question: "m(m + 2u) - u(2m - u)",
+                answer: "m² + u²",
+                explanation: "First distribute: m(m+2u) = m²+2mu and u(2m-u) = 2mu-u². Then combine: m²+2mu-2mu+u² = m²+u²"
+            },
+            {
+                question: "b(2b - 3x) + x(4b - x)",
+                answer: "2b² + bx - x²",
+                explanation: "First distribute: b(2b-3x) = 2b²-3bx and x(4b-x) = 4bx-x². Then combine: 2b²-3bx+4bx-x² = 2b²+bx-x²"
+            }
+        ];
+
+        let currentQuestion = 0;
+        let score = 0;
+        let answered = false;
+
+        const questionNumber = document.getElementById('questionNumber');
+        const questionText = document.getElementById('questionText');
+        const answerInput = document.getElementById('answerInput');
+        const submitBtn = document.getElementById('submitBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const feedback = document.getElementById('feedback');
+        const feedbackTitle = document.getElementById('feedbackTitle');
+        const explanation = document.getElementById('explanation');
+        const progressFill = document.getElementById('progressFill');
+        const quizSection = document.getElementById('quizSection');
+        const completion = document.getElementById('completion');
+        const finalScore = document.getElementById('finalScore');
+        const restartBtn = document.getElementById('restartBtn');
+
+        function loadQuestion() {
+            if (currentQuestion >= questions.length) {
+                showCompletion();
+                return;
+            }
+
+            const q = questions[currentQuestion];
+            questionNumber.textContent = `Question ${currentQuestion + 1} of ${questions.length}`;
+            questionText.textContent = q.question;
+            answerInput.value = '';
+            feedback.className = 'feedback';
+            nextBtn.style.display = 'none';
+            submitBtn.style.display = 'block';
+            submitBtn.disabled = false;
+            answered = false;
+            answerInput.focus();
+
+            const progress = ((currentQuestion) / questions.length) * 100;
+            progressFill.style.width = progress + '%';
+        }
+
+        function normalizeAnswer(str) {
+            return str.toLowerCase()
+                .replace(/\s+/g, '')
+                .replace(/\*+/g, '')
+                .replace(/\^/g, '')
+                .replace(/⁰/g, '0')
+                .replace(/¹/g, '1')
+                .replace(/²/g, '2')
+                .replace(/³/g, '3')
+                .replace(/⁴/g, '4')
+                .replace(/⁵/g, '5')
+                .replace(/⁶/g, '6')
+                .replace(/⁷/g, '7')
+                .replace(/⁸/g, '8')
+                .replace(/⁹/g, '9');
+        }
+
+        function checkAnswer() {
+            if (answered) return;
+
+            const userAnswer = normalizeAnswer(answerInput.value);
+            const correctAnswer = normalizeAnswer(questions[currentQuestion].answer);
+
+            answered = true;
+            submitBtn.disabled = true;
+
+            if (userAnswer === correctAnswer) {
+                score++;
+                feedback.className = 'feedback correct';
+                feedbackTitle.textContent = '✓ Correct!';
+                explanation.innerHTML = `<div class="answer-display">Answer: ${questions[currentQuestion].answer}</div><p>${questions[currentQuestion].explanation}</p>`;
+            } else {
+                feedback.className = 'feedback incorrect';
+                feedbackTitle.textContent = '✗ Not quite right';
+                explanation.innerHTML = `<div class="answer-display">Your answer: ${answerInput.value || '(empty)'}</div><div class="answer-display">Correct answer: ${questions[currentQuestion].answer}</div><p>${questions[currentQuestion].explanation}</p>`;
+            }
+
+            submitBtn.style.display = 'none';
+            nextBtn.style.display = 'block';
+        }
+
+        function nextQuestion() {
+            currentQuestion++;
+            loadQuestion();
+        }
+
+        function showCompletion() {
+            quizSection.style.display = 'none';
+            completion.className = 'completion show';
+            const percentage = Math.round((score / questions.length) * 100);
+            finalScore.textContent = `${score}/${questions.length} (${percentage}%)`;
+        }
+
+        function restart() {
+            currentQuestion = 0;
+            score = 0;
+            quizSection.style.display = 'block';
+            completion.className = 'completion';
+            loadQuestion();
+        }
+
+        submitBtn.addEventListener('click', checkAnswer);
+        nextBtn.addEventListener('click', nextQuestion);
+        restartBtn.addEventListener('click', restart);
+
+        answerInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                if (!answered) {
+                    checkAnswer();
+                } else {
+                    nextQuestion();
+                }
+            }
+        });
+
+        loadQuestion();
+    </script>
+</body>
+</html>

@@ -1,0 +1,25 @@
+{
+  "subject": "Maths",
+  "resources": [
+    {
+      "title": "Algebra Quiz App",
+      "file": "algebra-quiz-app.html",
+      "description": ""
+    },
+    {
+      "title": "Algebra Practice App",
+      "file": "algebra_practice_app.html",
+      "description": ""
+    },
+    {
+      "title": "Simple Algebra Problems",
+      "file": "simple algebra problems.html",
+      "description": ""
+    },
+    {
+      "title": "Simple Algebra Problems2",
+      "file": "simple algebra problems2.html",
+      "description": ""
+    }
+  ]
+}

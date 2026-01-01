@@ -1,0 +1,1495 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Algebra Practice - 40 Word Problems</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #2c5282;
+            --primary-light: #4299e1;
+            --secondary: #38a169;
+            --accent: #ed8936;
+            --danger: #e53e3e;
+            --bg-light: #f7fafc;
+            --bg-card: #ffffff;
+            --text-dark: #1a202c;
+            --text-muted: #718096;
+            --shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            --shadow-hover: 0 8px 30px rgba(0, 0, 0, 0.12);
+        }
+
+        body {
+            font-family: 'Georgia', 'Times New Roman', serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e8ecf1 100%);
+            min-height: 100vh;
+            color: var(--text-dark);
+            line-height: 1.7;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .logo {
+            font-size: 3rem;
+            margin-bottom: 10px;
+            color: var(--primary);
+        }
+
+        h1 {
+            font-size: 2.2rem;
+            color: var(--primary);
+            margin-bottom: 10px;
+            font-weight: 600;
+            letter-spacing: -0.5px;
+        }
+
+        .subtitle {
+            font-size: 1.1rem;
+            color: var(--text-muted);
+            font-style: italic;
+        }
+
+        .stats-bar {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .stat {
+            background: var(--bg-card);
+            padding: 15px 25px;
+            border-radius: 12px;
+            box-shadow: var(--shadow);
+            text-align: center;
+            min-width: 120px;
+        }
+
+        .stat-value {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .stat-label {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 5px;
+        }
+
+        .progress-container {
+            background: var(--bg-card);
+            border-radius: 20px;
+            padding: 20px;
+            margin-bottom: 30px;
+            box-shadow: var(--shadow);
+        }
+
+        .progress-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+
+        .progress-text {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+        }
+
+        .progress-bar {
+            height: 10px;
+            background: #e2e8f0;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary) 0%, var(--primary-light) 100%);
+            border-radius: 10px;
+            transition: width 0.5s ease;
+        }
+
+        .question-card {
+            background: var(--bg-card);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: var(--shadow);
+            margin-bottom: 25px;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .question-card:hover {
+            box-shadow: var(--shadow-hover);
+        }
+
+        .question-card.correct {
+            border-color: var(--secondary);
+        }
+
+        .question-card.incorrect {
+            border-color: var(--danger);
+        }
+
+        .question-number {
+            display: inline-block;
+            background: var(--primary);
+            color: white;
+            padding: 8px 18px;
+            border-radius: 25px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+
+        .difficulty-badge {
+            display: inline-block;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-left: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .difficulty-easy {
+            background: #c6f6d5;
+            color: #22543d;
+        }
+
+        .difficulty-medium {
+            background: #feebc8;
+            color: #744210;
+        }
+
+        .difficulty-hard {
+            background: #fed7d7;
+            color: #742a2a;
+        }
+
+        .question-text {
+            font-size: 1.25rem;
+            line-height: 1.8;
+            color: var(--text-dark);
+            margin-bottom: 30px;
+            padding: 20px;
+            background: #f8fafc;
+            border-radius: 12px;
+            border-left: 4px solid var(--primary);
+        }
+
+        .answer-section {
+            margin-top: 25px;
+        }
+
+        .answer-input {
+            width: 100%;
+            padding: 18px 25px;
+            font-size: 1.2rem;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            font-family: 'Georgia', serif;
+            transition: all 0.3s ease;
+            outline: none;
+        }
+
+        .answer-input:focus {
+            border-color: var(--primary-light);
+            box-shadow: 0 0 0 4px rgba(66, 153, 225, 0.15);
+        }
+
+        .answer-input.correct {
+            border-color: var(--secondary);
+            background: #f0fff4;
+        }
+
+        .answer-input.incorrect {
+            border-color: var(--danger);
+            background: #fff5f5;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 18px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: white;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            margin-top: 15px;
+            transition: all 0.3s ease;
+            font-family: 'Georgia', serif;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(44, 82, 130, 0.35);
+        }
+
+        .submit-btn:disabled {
+            background: #cbd5e0;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        .feedback {
+            display: none;
+            margin-top: 25px;
+            padding: 25px;
+            border-radius: 12px;
+            animation: slideIn 0.4s ease;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .feedback.show {
+            display: block;
+        }
+
+        .feedback.correct {
+            background: linear-gradient(135deg, #f0fff4 0%, #c6f6d5 100%);
+            border: 2px solid var(--secondary);
+        }
+
+        .feedback.incorrect {
+            background: linear-gradient(135deg, #fff5f5 0%, #fed7d7 100%);
+            border: 2px solid var(--danger);
+        }
+
+        .feedback-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+            font-weight: 700;
+        }
+
+        .feedback.correct .feedback-header {
+            color: var(--secondary);
+        }
+
+        .feedback.incorrect .feedback-header {
+            color: var(--danger);
+        }
+
+        .feedback-icon {
+            font-size: 1.5rem;
+        }
+
+        .your-answer {
+            margin-bottom: 15px;
+            padding: 12px 18px;
+            background: rgba(255, 255, 255, 0.7);
+            border-radius: 8px;
+        }
+
+        .your-answer strong {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        .your-answer span {
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+
+        .correct-answer {
+            margin-bottom: 15px;
+            padding: 12px 18px;
+            background: rgba(255, 255, 255, 0.7);
+            border-radius: 8px;
+        }
+
+        .correct-answer strong {
+            color: var(--secondary);
+            font-size: 0.9rem;
+        }
+
+        .correct-answer span {
+            font-weight: 700;
+            font-size: 1.1rem;
+            color: var(--secondary);
+        }
+
+        .explanation {
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.6);
+            border-radius: 10px;
+            margin-top: 15px;
+        }
+
+        .explanation-title {
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 12px;
+            font-size: 1.1rem;
+        }
+
+        .explanation p {
+            margin-bottom: 10px;
+            line-height: 1.8;
+        }
+
+        .equation {
+            display: inline-block;
+            background: rgba(44, 82, 130, 0.1);
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-family: 'Courier New', monospace;
+            font-weight: 600;
+            margin: 8px 0;
+            color: var(--primary);
+        }
+
+        .next-btn {
+            width: 100%;
+            padding: 18px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: white;
+            background: linear-gradient(135deg, var(--secondary) 0%, #48bb78 100%);
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: all 0.3s ease;
+            font-family: 'Georgia', serif;
+        }
+
+        .next-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(56, 161, 105, 0.35);
+        }
+
+        .results-card {
+            display: none;
+            background: var(--bg-card);
+            border-radius: 20px;
+            padding: 50px;
+            box-shadow: var(--shadow);
+            text-align: center;
+            animation: slideIn 0.5s ease;
+        }
+
+        .results-card.show {
+            display: block;
+        }
+
+        .results-icon {
+            font-size: 5rem;
+            margin-bottom: 20px;
+        }
+
+        .results-title {
+            font-size: 2rem;
+            color: var(--primary);
+            margin-bottom: 15px;
+        }
+
+        .results-score {
+            font-size: 4rem;
+            font-weight: 700;
+            color: var(--secondary);
+            margin: 20px 0;
+        }
+
+        .results-details {
+            font-size: 1.1rem;
+            color: var(--text-muted);
+            margin-bottom: 30px;
+        }
+
+        .grade {
+            display: inline-block;
+            padding: 15px 40px;
+            border-radius: 50px;
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin: 20px 0;
+        }
+
+        .grade-a {
+            background: #c6f6d5;
+            color: #22543d;
+        }
+
+        .grade-b {
+            background: #bee3f8;
+            color: #2a4365;
+        }
+
+        .grade-c {
+            background: #feebc8;
+            color: #744210;
+        }
+
+        .grade-d {
+            background: #fed7d7;
+            color: #742a2a;
+        }
+
+        .restart-btn {
+            padding: 18px 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: white;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            margin-top: 25px;
+            transition: all 0.3s ease;
+            font-family: 'Georgia', serif;
+        }
+
+        .restart-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(44, 82, 130, 0.35);
+        }
+
+        .hint {
+            display: none;
+            margin-top: 15px;
+            padding: 15px 20px;
+            background: #ebf8ff;
+            border-radius: 10px;
+            border-left: 4px solid var(--primary-light);
+            color: var(--primary);
+            font-style: italic;
+        }
+
+        .hint.show {
+            display: block;
+        }
+
+        .hint-toggle {
+            background: none;
+            border: none;
+            color: var(--primary-light);
+            cursor: pointer;
+            font-size: 0.9rem;
+            margin-top: 10px;
+            font-style: italic;
+        }
+
+        .hint-toggle:hover {
+            text-decoration: underline;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 50px;
+            padding: 20px;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        footer a {
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px 15px;
+            }
+
+            .question-card {
+                padding: 25px 20px;
+            }
+
+            .question-text {
+                font-size: 1.1rem;
+            }
+
+            .stats-bar {
+                gap: 15px;
+            }
+
+            .stat {
+                padding: 12px 18px;
+                min-width: 100px;
+            }
+
+            .stat-value {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">📐</div>
+            <h1>Algebra Practice</h1>
+            <p class="subtitle">Forty Word Problems in the Style of New General Mathematics</p>
+        </header>
+
+        <div class="stats-bar">
+            <div class="stat">
+                <div class="stat-value" id="currentScore">0</div>
+                <div class="stat-label">Score</div>
+            </div>
+            <div class="stat">
+                <div class="stat-value" id="correctCount">0</div>
+                <div class="stat-label">Correct</div>
+            </div>
+            <div class="stat">
+                <div class="stat-value" id="streakCount">0</div>
+                <div class="stat-label">Streak</div>
+            </div>
+        </div>
+
+        <div class="progress-container">
+            <div class="progress-header">
+                <span class="progress-text">Question <span id="currentQuestion">1</span> of 40</span>
+                <span class="progress-text" id="progressPercent">0%</span>
+            </div>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill" style="width: 0%"></div>
+            </div>
+        </div>
+
+        <div id="quizContainer">
+            <div class="question-card" id="questionCard">
+                <div>
+                    <span class="question-number" id="questionNumber">Question 1</span>
+                    <span class="difficulty-badge" id="difficultyBadge">Easy</span>
+                </div>
+                <div class="question-text" id="questionText">
+                    Loading question...
+                </div>
+                <div class="answer-section">
+                    <input type="text" class="answer-input" id="answerInput" placeholder="Enter your answer..." autocomplete="off">
+                    <button class="submit-btn" id="submitBtn">Submit Answer</button>
+                    <button class="hint-toggle" id="hintToggle">Need a hint?</button>
+                    <div class="hint" id="hint"></div>
+                </div>
+                <div class="feedback" id="feedback">
+                    <div class="feedback-header">
+                        <span class="feedback-icon" id="feedbackIcon"></span>
+                        <span id="feedbackTitle"></span>
+                    </div>
+                    <div class="your-answer" id="yourAnswer"></div>
+                    <div class="correct-answer" id="correctAnswer"></div>
+                    <div class="explanation" id="explanation"></div>
+                    <button class="next-btn" id="nextBtn">Next Question →</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="results-card" id="resultsCard">
+            <div class="results-icon">🎉</div>
+            <h2 class="results-title">Practice Complete!</h2>
+            <div class="results-score" id="finalScore">0/40</div>
+            <div class="results-details" id="resultsDetails"></div>
+            <div class="grade" id="grade"></div>
+            <p style="margin-top: 20px; color: var(--text-muted);" id="encouragement"></p>
+            <button class="restart-btn" id="restartBtn">Practice Again</button>
+        </div>
+
+        <footer>
+            <p>Algebra Practice | Inspired by <em>New General Mathematics</em> by Channon, McLeish Smith & Head</p>
+        </footer>
+    </div>
+
+    <script>
+        const problems = [
+            {
+                difficulty: "easy",
+                question: "A merchant bought a certain number of articles for $24 and sold them for $36. If his profit was $2 per article, how many articles did he buy?",
+                answer: "6",
+                hint: "Let x be the number of articles. Total cost = $24, Total selling price = $36. Profit per article = $2.",
+                explanation: `<p>Let x be the number of articles the merchant bought.</p>
+                <p>Total cost of articles = $24</p>
+                <p>Total selling price = $36</p>
+                <p>Total profit = $36 - $24 = $12</p>
+                <p>Profit per article = $2</p>
+                <p>Therefore: <span class="equation">x × $2 = $12</span></p>
+                <p><span class="equation">x = 12 ÷ 2 = 6</span></p>
+                <p>The merchant bought 6 articles.</p>`
+            },
+            {
+                difficulty: "easy",
+                question: "Two numbers differ by 5 and their sum is 27. Find the larger number.",
+                answer: "16",
+                hint: "Let the larger number be x, then the smaller is x - 5. Their sum is x + (x - 5) = 27.",
+                explanation: `<p>Let the larger number be x.</p>
+                <p>Then the smaller number is x - 5.</p>
+                <p>Sum of the two numbers: x + (x - 5) = 27</p>
+                <p><span class="equation">2x - 5 = 27</span></p>
+                <p><span class="equation">2x = 27 + 5 = 32</span></p>
+                <p><span class="equation">x = 32 ÷ 2 = 16</span></p>
+                <p>The larger number is 16.</p>`
+            },
+            {
+                difficulty: "easy",
+                question: "A rectangular garden is 8 meters longer than it is wide. If its perimeter is 56 meters, find its width.",
+                answer: "10",
+                hint: "Let width be x meters. Then length is x + 8. Perimeter = 2(length + width) = 56.",
+                explanation: `<p>Let the width be x meters.</p>
+                <p>Then the length is x + 8 meters.</p>
+                <p>Perimeter = 2(length + width) = 2(x + 8 + x) = 2(2x + 8)</p>
+                <p><span class="equation">2(2x + 8) = 56</span></p>
+                <p><span class="equation">2x + 8 = 28</span></p>
+                <p><span class="equation">2x = 20</span></p>
+                <p><span class="equation">x = 10</span></p>
+                <p>The width is 10 meters.</p>`
+            },
+            {
+                difficulty: "easy",
+                question: "A man is three times as old as his son was four years ago. If the man is now 45 years old, how old is his son now?",
+                answer: "19",
+                hint: "Let son's current age be x. Four years ago son was x - 4. Man is now 45, which equals 3 times what son was 4 years ago.",
+                explanation: `<p>Let the son's current age be x years.</p>
+                <p>Four years ago, the son was x - 4 years old.</p>
+                <p>The man is now 45 years old.</p>
+                <p>According to the problem: <span class="equation">45 = 3(x - 4)</span></p>
+                <p><span class="equation">45 = 3x - 12</span></p>
+                <p><span class="equation">3x = 45 + 12 = 57</span></p>
+                <p><span class="equation">x = 57 ÷ 3 = 19</span></p>
+                <p>The son is now 19 years old.</p>`
+            },
+            {
+                difficulty: "easy",
+                question: "A sum of money divided among three persons amounts to $180. If the first receives twice as much as the second, and the third receives $30 more than the second, how much does the second person receive?",
+                answer: "37.5",
+                hint: "Let second person receive x. Then first receives 2x, and third receives x + 30. Sum: 2x + x + x + 30 = 180.",
+                explanation: `<p>Let the second person receive $x.</p>
+                <p>Then the first person receives $2x.</p>
+                <p>And the third person receives $(x + 30).</p>
+                <p>Sum of all three shares: 2x + x + (x + 30) = 180</p>
+                <p><span class="equation">4x + 30 = 180</span></p>
+                <p><span class="equation">4x = 150</span></p>
+                <p><span class="equation">x = 150 ÷ 4 = 37.5</span></p>
+                <p>The second person receives $37.50.</p>`
+            },
+            {
+                difficulty: "easy",
+                question: "A train travels 180 miles in the same time that a car travels 120 miles. If the train travels 20 miles per hour faster than the car, find the speed of the car.",
+                answer: "40",
+                hint: "Let car's speed be x mph. Then train's speed is x + 20 mph. Time is same: 180/(x+20) = 120/x.",
+                explanation: `<p>Let the car's speed be x miles per hour.</p>
+                <p>Then the train's speed is x + 20 miles per hour.</p>
+                <p>Time taken by train = 180/(x + 20) hours</p>
+                <p>Time taken by car = 120/x hours</p>
+                <p>Since times are equal: <span class="equation">180/(x + 20) = 120/x</span></p>
+                <p><span class="equation">180x = 120(x + 20)</span></p>
+                <p><span class="equation">180x = 120x + 2400</span></p>
+                <p><span class="equation">60x = 2400</span></p>
+                <p><span class="equation">x = 40</span></p>
+                <p>The car's speed is 40 miles per hour.</p>`
+            },
+            {
+                difficulty: "easy",
+                question: "If 5 times a number is increased by 7, the result is 42. Find the number.",
+                answer: "7",
+                hint: "Let the number be x. 5 times the number is 5x. Increased by 7 gives 5x + 7 = 42.",
+                explanation: `<p>Let the number be x.</p>
+                <p>Five times the number: 5x</p>
+                <p>Increased by 7: 5x + 7</p>
+                <p>This equals 42: <span class="equation">5x + 7 = 42</span></p>
+                <p><span class="equation">5x = 42 - 7 = 35</span></p>
+                <p><span class="equation">x = 35 ÷ 5 = 7</span></p>
+                <p>The number is 7.</p>`
+            },
+            {
+                difficulty: "easy",
+                question: "The sum of three consecutive odd integers is 87. Find the middle integer.",
+                answer: "29",
+                hint: "Let the middle integer be x. Then the three consecutive odd integers are x-2, x, x+2. Sum = (x-2) + x + (x+2) = 3x = 87.",
+                explanation: `<p>Let the middle integer be x.</p>
+                <p>Three consecutive odd integers: x-2, x, x+2</p>
+                <p>Sum: (x-2) + x + (x+2) = 3x</p>
+                <p><span class="equation">3x = 87</span></p>
+                <p><span class="equation">x = 87 ÷ 3 = 29</span></p>
+                <p>The middle integer is 29.</p>
+                <p>(Check: 27 + 29 + 31 = 87 ✓)</p>`
+            },
+            {
+                difficulty: "easy",
+                question: "The length of a rectangle is twice its width. If the area is 72 square inches, find the width.",
+                answer: "6",
+                hint: "Let width be x. Then length is 2x. Area = length × width = 2x × x = 2x² = 72.",
+                explanation: `<p>Let the width be x inches.</p>
+                <p>Then the length is 2x inches.</p>
+                <p>Area = length × width = 2x × x = 2x²</p>
+                <p><span class="equation">2x² = 72</span></p>
+                <p><span class="equation">x² = 36</span></p>
+                <p><span class="equation">x = 6</span> (since width must be positive)</p>
+                <p>The width is 6 inches.</p>`
+            },
+            {
+                difficulty: "medium",
+                question: "A and B together can do a piece of work in 6 days. A alone can do it in 10 days. How many days would B alone take to do the same work?",
+                answer: "15",
+                hint: "A's work rate = 1/10 per day. Together A+B = 1/6 per day. So B = 1/6 - 1/10.",
+                explanation: `<p>Let the work be 1 unit.</p>
+                <p>A's work rate = 1/10 of the work per day</p>
+                <p>Together A and B's rate = 1/6 of the work per day</p>
+                <p>B's work rate = together rate - A's rate</p>
+                <p><span class="equation">B = 1/6 - 1/10</span></p>
+                <p><span class="equation">B = (10 - 6)/60 = 4/60 = 1/15</span></p>
+                <p>B's rate is 1/15 of the work per day</p>
+                <p>So B alone would take 15 days.</p>`
+            },
+            {
+                difficulty: "medium",
+                question: "A boat travels 20 miles downstream in the same time it takes to travel 12 miles upstream. If the speed of the current is 2 miles per hour, find the speed of the boat in still water.",
+                answer: "8",
+                hint: "Let boat speed in still water be x mph. Downstream speed = x + 2, upstream = x - 2. Time downstream = 20/(x+2), time upstream = 12/(x-2).",
+                explanation: `<p>Let the boat's speed in still water be x miles per hour.</p>
+                <p>Downstream speed = x + 2 mph</p>
+                <p>Upstream speed = x - 2 mph</p>
+                <p>Time downstream = 20/(x + 2) hours</p>
+                <p>Time upstream = 12/(x - 2) hours</p>
+                <p>These times are equal: <span class="equation">20/(x + 2) = 12/(x - 2)</span></p>
+                <p><span class="equation">20(x - 2) = 12(x + 2)</span></p>
+                <p><span class="equation">20x - 40 = 12x + 24</span></p>
+                <p><span class="equation">8x = 64</span></p>
+                <p><span class="equation">x = 8</span></p>
+                <p>The boat's speed in still water is 8 miles per hour.</p>
+                <p>Verification: Downstream = 10 mph, time = 20/10 = 2 hours</p>
+                <p>Upstream = 6 mph, time = 12/6 = 2 hours ✓</p>`
+            },
+            {
+                difficulty: "medium",
+                question: "A father is 30 years older than his son. In 5 years, the father will be three times as old as his son will be then. How old is the son now?",
+                answer: "10",
+                hint: "Let son's current age be x. Father's current age is x + 30. In 5 years: father = (x+30)+5, son = x+5. Father = 3 × son.",
+                explanation: `<p>Let the son's current age be x years.</p>
+                <p>Then the father's current age is x + 30 years.</p>
+                <p>In 5 years:</p>
+                <p>Son's age = x + 5</p>
+                <p>Father's age = (x + 30) + 5 = x + 35</p>
+                <p>Father will be three times as old as son:</p>
+                <p><span class="equation">x + 35 = 3(x + 5)</span></p>
+                <p><span class="equation">x + 35 = 3x + 15</span></p>
+                <p><span class="equation">35 - 15 = 3x - x</span></p>
+                <p><span class="equation">20 = 2x</span></p>
+                <p><span class="equation">x = 10</span></p>
+                <p>The son is 10 years old now.</p>
+                <p>Father is 40. In 5 years: 45 and 15. 45 = 3 × 15 ✓</p>`
+            },
+            {
+                difficulty: "medium",
+                question: "A mixture contains milk and water in the ratio 5:2. If 8 liters of water are added, the ratio becomes 5:4. How many liters of milk are in the mixture?",
+                answer: "20",
+                hint: "Let milk = 5x liters, water = 2x liters. After adding 8L water: milk = 5x, water = 2x+8. Ratio 5x : (2x+8) = 5 : 4.",
+                explanation: `<p>Let the amount of milk be 5x liters.</p>
+                <p>Let the amount of water be 2x liters.</p>
+                <p>After adding 8 liters of water:</p>
+                <p>Milk = 5x liters</p>
+                <p>Water = 2x + 8 liters</p>
+                <p>New ratio = 5 : 4</p>
+                <p><span class="equation">5x / (2x + 8) = 5 / 4</span></p>
+                <p><span class="equation">4 × 5x = 5 × (2x + 8)</span></p>
+                <p><span class="equation">20x = 10x + 40</span></p>
+                <p><span class="equation">10x = 40</span></p>
+                <p><span class="equation">x = 4</span></p>
+                <p>Milk = 5 × 4 = 20 liters.</p>`
+            },
+            {
+                difficulty: "medium",
+                question: "A man bought a horse and carriage for $600 and sold them for $720, gaining $80 more on the horse than on the carriage. Find the cost price of the horse.",
+                answer: "340",
+                hint: "Let carriage cost be x. Horse cost = 600 - x. Horse profit = (600-x) + p, carriage profit = x + c. Horse profit = carriage profit + 80.",
+                explanation: `<p>Let the cost price of the carriage be $x.</p>
+                <p>Then the cost price of the horse is $(600 - x).</p>
+                <p>Total selling price = $720</p>
+                <p>Total profit = 720 - 600 = $120</p>
+                <p>Let profit on carriage be $p.</p>
+                <p>Then profit on horse = $p + 80</p>
+                <p>Total profit: p + (p + 80) = 120</p>
+                <p><span class="equation">2p + 80 = 120</span></p>
+                <p><span class="equation">2p = 40</span></p>
+                <p><span class="equation">p = 20</span></p>
+                <p>Cost of carriage + profit = selling price of carriage</p>
+                <p><span class="equation">x + 20 = selling price of carriage</span></p>
+                <p>Cost of horse + profit on horse = selling price of horse</p>
+                <p><span class="equation">(600 - x) + (20 + 80) = 700 - x</span></p>
+                <p>Total selling: (x + 20) + (700 - x) = 720 ✓</p>
+                <p>So cost of horse = 600 - x = $340</p>`
+            },
+            {
+                difficulty: "medium",
+                question: "Some boys and girls went on a picnic. Each boy paid $5 and each girl paid $4. The total money collected was $110. If there were 5 more girls than boys, how many boys were there?",
+                answer: "10",
+                hint: "Let boys = x. Girls = x + 5. Total: 5x + 4(x + 5) = 110.",
+                explanation: `<p>Let the number of boys be x.</p>
+                <p>Then the number of girls is x + 5.</p>
+                <p>Total money from boys = 5x dollars</p>
+                <p>Total money from girls = 4(x + 5) dollars</p>
+                <p><span class="equation">5x + 4(x + 5) = 110</span></p>
+                <p><span class="equation">5x + 4x + 20 = 110</span></p>
+                <p><span class="equation">9x + 20 = 110</span></p>
+                <p><span class="equation">9x = 90</span></p>
+                <p><span class="equation">x = 10</span></p>
+                <p>There were 10 boys.</p>
+                <p>Check: 10 boys × $5 = $50, 15 girls × $4 = $60, Total = $110 ✓</p>`
+            },
+            {
+                difficulty: "medium",
+                question: "A man invested part of $5000 at 6% interest and the remainder at 8% interest. His annual income from both investments is $340. How much did he invest at 6%?",
+                answer: "3000",
+                hint: "Let x be invested at 6%. Then 5000-x is invested at 8%. Income: 0.06x + 0.08(5000-x) = 340.",
+                explanation: `<p>Let x dollars be invested at 6%.</p>
+                <p>Then (5000 - x) dollars is invested at 8%.</p>
+                <p>Income from 6% investment = 0.06x</p>
+                <p>Income from 8% investment = 0.08(5000 - x)</p>
+                <p>Total income = $340</p>
+                <p><span class="equation">0.06x + 0.08(5000 - x) = 340</span></p>
+                <p><span class="equation">0.06x + 400 - 0.08x = 340</span></p>
+                <p><span class="equation">-0.02x + 400 = 340</span></p>
+                <p><span class="equation">-0.02x = -60</span></p>
+                <p><span class="equation">x = 60 / 0.02 = 3000</span></p>
+                <p>He invested $3000 at 6%.</p>
+                <p>Check: $3000 at 6% = $180, $2000 at 8% = $160, Total = $340 ✓</p>`
+            },
+            {
+                difficulty: "medium",
+                question: "A and B can do a job together in 4 days. A can do it alone in 6 days less than B. How many days would B take to do the job alone?",
+                answer: "12",
+                hint: "Let B take x days. Then A takes (x-6) days. Combined rate: 1/x + 1/(x-6) = 1/4.",
+                explanation: `<p>Let B take x days to do the job alone.</p>
+                <p>Then A takes (x - 6) days alone.</p>
+                <p>B's work rate = 1/x of the job per day</p>
+                <p>A's work rate = 1/(x - 6) of the job per day</p>
+                <p>Combined rate = 1/4 of the job per day</p>
+                <p><span class="equation">1/x + 1/(x-6) = 1/4</span></p>
+                <p><span class="equation">(x-6 + x) / [x(x-6)] = 1/4</span></p>
+                <p><span class="equation">(2x - 6) / (x² - 6x) = 1/4</span></p>
+                <p><span class="equation">4(2x - 6) = x² - 6x</span></p>
+                <p><span class="equation">8x - 24 = x² - 6x</span></p>
+                <p><span class="equation">x² - 14x + 24 = 0</span></p>
+                <p><span class="equation">(x - 12)(x - 2) = 0</span></p>
+                <p>x = 12 or x = 2</p>
+                <p>If x = 2, A would take -4 days (impossible)</p>
+                <p>So B takes 12 days alone.</p>
+                <p>Check: A takes 6 days. Together: 1/12 + 1/6 = 1/12 + 2/12 = 3/12 = 1/4 ✓</p>`
+            },
+            {
+                difficulty: "medium",
+                question: "The digits of a two-digit number add up to 12. If the digits are reversed, the new number is 36 less than the original. Find the original number.",
+                answer: "84",
+                hint: "Let tens digit be x, units be y. x + y = 12. Original number = 10x + y. Reversed = 10y + x. 10y + x = 10x + y - 36.",
+                explanation: `<p>Let the tens digit be x and the units digit be y.</p>
+                <p>x + y = 12</p>
+                <p>Original number = 10x + y</p>
+                <p>Reversed number = 10y + x</p>
+                <p>Reversed is 36 less than original:</p>
+                <p><span class="equation">10y + x = (10x + y) - 36</span></p>
+                <p><span class="equation">10y + x = 10x + y - 36</span></p>
+                <p><span class="equation">9y - 9x = -36</span></p>
+                <p><span class="equation">9(x - y) = 36</span></p>
+                <p><span class="equation">x - y = 4</span></p>
+                <p>Now we have:</p>
+                <p>x + y = 12</p>
+                <p>x - y = 4</p>
+                <p>Adding: 2x = 16, so x = 8</p>
+                <p>y = 12 - 8 = 4</p>
+                <p>The original number is 84.</p>
+                <p>Check: 84 reversed is 48. 84 - 48 = 36 ✓</p>`
+            },
+            {
+                difficulty: "medium",
+                question: "A cyclist travels from A to B at 10 miles per hour and returns at 8 miles per hour. If the total time taken is 9 hours, find the distance between A and B.",
+                answer: "40",
+                hint: "Let distance be x miles. Time to B = x/10 hours. Time to return = x/8 hours. Total time = x/10 + x/8 = 9.",
+                explanation: `<p>Let the distance between A and B be x miles.</p>
+                <p>Time to travel from A to B = x/10 hours</p>
+                <p>Time to return from B to A = x/8 hours</p>
+                <p>Total time = 9 hours</p>
+                <p><span class="equation">x/10 + x/8 = 9</span></p>
+                <p>Find common denominator (40):</p>
+                <p><span class="equation">4x/40 + 5x/40 = 9</span></p>
+                <p><span class="equation">9x/40 = 9</span></p>
+                <p><span class="equation">9x = 360</span></p>
+                <p><span class="equation">x = 40</span></p>
+                <p>The distance between A and B is 40 miles.</p>
+                <p>Check: Time there = 40/10 = 4 hours, back = 40/8 = 5 hours, total = 9 hours ✓</p>`
+            },
+            {
+                difficulty: "medium",
+                question: "A shopkeeper sells an article for $80 and loses $10. If he had sold it for $95, what would have been his gain or loss?",
+                answer: "5",
+                hint: "Cost price = selling price + loss. So CP = 80 + 10 = 90. If sold for 95, gain/loss = 95 - 90.",
+                explanation: `<p>Selling price = $80</p>
+                <p>Loss = $10</p>
+                <p>Cost price = Selling price + Loss</p>
+                <p><span class="equation">CP = 80 + 10 = $90</span></p>
+                <p>If sold for $95:</p>
+                <p>Gain or loss = Selling price - Cost price</p>
+                <p><span class="equation">95 - 90 = $5</span></p>
+                <p>Since positive, it's a gain of $5.</p>`
+            },
+            {
+                difficulty: "hard",
+                question: "Two pipes fill a tank. Pipe A alone fills it in 3 hours. Pipe B alone fills it in 6 hours. Both are opened, but after 1 hour, pipe A is closed and B continues. How much total time to fill the tank?",
+                answer: "4",
+                hint: "In 1 hour together: A fills 1/3, B fills 1/6, total = 1/3 + 1/6 = 1/2. Remaining = 1/2. B fills at 1/6 per hour, so needs 3 more hours. Total = 1 + 3 = 4 hours.",
+                explanation: `<p>Rate of A = 1/3 of tank per hour</p>
+                <p>Rate of B = 1/6 of tank per hour</p>
+                <p>In first hour (both open):</p>
+                <p>A fills: 1/3 of tank</p>
+                <p>B fills: 1/6 of tank</p>
+                <p>Total filled in 1 hour = 1/3 + 1/6 = 2/6 + 1/6 = 3/6 = 1/2 of tank</p>
+                <p>Remaining = 1 - 1/2 = 1/2 of tank</p>
+                <p>B alone fills at rate 1/6 per hour</p>
+                <p>Time for B to fill remaining 1/2 = (1/2) ÷ (1/6) = (1/2) × 6 = 3 hours</p>
+                <p>Total time = 1 hour + 3 hours = 4 hours</p>`
+            },
+            {
+                difficulty: "medium",
+                question: "A student has test scores of 75, 82, and 90. What score must he get on the fourth test to have an average of 85?",
+                answer: "93",
+                hint: "Let fourth score be x. Average = (75 + 82 + 90 + x)/4 = 85. So 247 + x = 340.",
+                explanation: `<p>Let the fourth test score be x.</p>
+                <p>Sum of all four scores = 75 + 82 + 90 + x = 247 + x</p>
+                <p>Average = (247 + x) / 4 = 85</p>
+                <p><span class="equation">247 + x = 85 × 4</span></p>
+                <p><span class="equation">247 + x = 340</span></p>
+                <p><span class="equation">x = 340 - 247 = 93</span></p>
+                <p>He must score 93 on the fourth test.</p>`
+            },
+            {
+                difficulty: "medium",
+                question: "A man covers a certain distance at 8 km/h and returns at 6 km/h. His average speed for the whole journey is:",
+                answer: "6.86",
+                hint: "Let distance one way be d. Time there = d/8, time back = d/6. Total distance = 2d. Total time = d/8 + d/6 = 7d/24. Average = 2d ÷ (7d/24) = 48/7 ≈ 6.86 km/h.",
+                explanation: `<p>Let the one-way distance be d kilometers.</p>
+                <p>Time to go = d/8 hours</p>
+                <p>Time to return = d/6 hours</p>
+                <p>Total time = d/8 + d/6</p>
+                <p>Common denominator 24: (3d/24 + 4d/24) = 7d/24 hours</p>
+                <p>Total distance = 2d kilometers</p>
+                <p>Average speed = total distance ÷ total time</p>
+                <p><span class="equation">Average = 2d ÷ (7d/24) = 2d × (24/7d) = 48/7 ≈ 6.86 km/h</span></p>
+                <p>The average speed is 48/7 km/h or approximately 6.86 km/h.</p>`
+            },
+            {
+                difficulty: "hard",
+                question: "A man has some 5-rupee and 10-rupee notes totaling $240. If he had twice as many 5-rupee notes and half as many 10-rupee notes, he would have $330. How many 5-rupee notes does he have?",
+                answer: "28",
+                hint: "Let 5-rupee notes = x, 10-rupee = y. 5x + 10y = 240. Second condition: 5(2x) + 10(y/2) = 10x + 5y = 330.",
+                explanation: `<p>Let x be the number of 5-rupee notes.</p>
+                <p>Let y be the number of 10-rupee notes.</p>
+                <p>First equation (total value):</p>
+                <p><span class="equation">5x + 10y = 240</span></p>
+                <p>Divide by 5: x + 2y = 48</p>
+                <p>Second condition (twice as many 5s, half as many 10s):</p>
+                <p><span class="equation">5(2x) + 10(y/2) = 330</span></p>
+                <p><span class="equation">10x + 5y = 330</span></p>
+                <p>Divide by 5: 2x + y = 66</p>
+                <p>Now solve system:</p>
+                <p>Eq 1: x + 2y = 48</p>
+                <p>Eq 2: 2x + y = 66</p>
+                <p>From Eq 1: x = 48 - 2y</p>
+                <p>Substitute into Eq 2: 2(48 - 2y) + y = 66</p>
+                <p>96 - 4y + y = 66</p>
+                <p>96 - 3y = 66</p>
+                <p>3y = 30</p>
+                <p>y = 10</p>
+                <p>x = 48 - 20 = 28</p>
+                <p>He has 28 five-rupee notes.</p>
+                <p>Check: 5(28) + 10(10) = 140 + 100 = 240 ✓</p>
+                <p>Twice 5s: 56 notes of 5 = 280</p>
+                <p>Half 10s: 5 notes of 10 = 50</p>
+                <p>Total = 280 + 50 = 330 ✓</p>`
+            },
+            {
+                difficulty: "hard",
+                question: "A and B start a business with capitals of $2000 and $3000 respectively. After 3 months, A adds $500 and B withdraws $500. After another 3 months, they share profit. Find B's share of $770 profit.",
+                answer: "423.5",
+                hint: "Calculate equivalent capital for 6 months. A: 2000×3 + 2500×3 = 6000 + 7500 = 13500. B: 3000×3 + 2500×3 = 9000 + 7500 = 16500. Total = 30000. B's share = 16500/30000 × 770.",
+                explanation: `<p>Calculate equivalent capital-time product for each partner.</p>
+                <p><strong>A:</strong></p>
+                <p>First 3 months: $2000 × 3 = 6000</p>
+                <p>Next 3 months: $2500 × 3 = 7500 (after adding $500)</p>
+                <p>Total A = 6000 + 7500 = 13500</p>
+                <p><strong>B:</strong></p>
+                <p>First 3 months: $3000 × 3 = 9000</p>
+                <p>Next 3 months: $2500 × 3 = 7500 (after withdrawing $500)</p>
+                <p>Total B = 9000 + 7500 = 16500</p>
+                <p>Total capital-time = 13500 + 16500 = 30000</p>
+                <p>B's share = (16500 / 30000) × $770</p>
+                <p><span class="equation">16500/30000 = 165/300 = 11/20</span></p>
+                <p><span class="equation">B's share = (11/20) × 770 = 11 × 38.5 = $423.50</span></p>
+                <p>B's share is $423.50</p>`
+            },
+            {
+                difficulty: "hard",
+                question: "The sum of a number and its reciprocal is 17/4. Find the number.",
+                answer: "4",
+                hint: "Let x be the number. Then x + 1/x = 17/4. Multiply by x: x² + 1 = 17x/4. 4x² - 17x + 4 = 0.",
+                explanation: `<p>Let the number be x.</p>
+                <p>Its reciprocal is 1/x.</p>
+                <p><span class="equation">x + 1/x = 17/4</span></p>
+                <p>Multiply both sides by x:</p>
+                <p><span class="equation">x² + 1 = (17/4)x</span></p>
+                <p>Multiply by 4 to eliminate fraction:</p>
+                <p><span class="equation">4x² + 4 = 17x</span></p>
+                <p><span class="equation">4x² - 17x + 4 = 0</span></p>
+                <p>Factor quadratic:</p>
+                <p><span class="equation">(4x - 1)(x - 4) = 0</span></p>
+                <p><span class="equation">4x - 1 = 0 → x = 1/4</span></p>
+                <p><span class="equation">x - 4 = 0 → x = 4</span></p>
+                <p>Both 4 and 1/4 are valid answers (they are reciprocals of each other).</p>
+                <p>The number is 4 (or 1/4).</p>`
+            },
+            {
+                difficulty: "hard",
+                question: "Two taps fill a tank. The larger tap would fill it in 2 hours less time than the smaller tap. If both are open, the tank fills in 3 hours. Find the time the smaller tap alone would take.",
+                answer: "7.16",
+                hint: "Let smaller tap take x hours. Larger takes (x-2) hours. Combined rate: 1/x + 1/(x-2) = 1/3.",
+                explanation: `<p>Let the smaller tap take x hours to fill the tank alone.</p>
+                <p>Then the larger tap takes (x - 2) hours alone.</p>
+                <p>Smaller tap rate = 1/x of tank per hour</p>
+                <p>Larger tap rate = 1/(x - 2) of tank per hour</p>
+                <p>Combined rate = 1/3 of tank per hour</p>
+                <p><span class="equation">1/x + 1/(x-2) = 1/3</span></p>
+                <p><span class="equation">(x-2 + x) / [x(x-2)] = 1/3</span></p>
+                <p><span class="equation">(2x - 2) / (x² - 2x) = 1/3</span></p>
+                <p><span class="equation">3(2x - 2) = x² - 2x</span></p>
+                <p><span class="equation">6x - 6 = x² - 2x</span></p>
+                <p><span class="equation">x² - 8x + 6 = 0</span></p>
+                <p>Using quadratic formula:</p>
+                <p><span class="equation">x = [8 ± √(64 - 24)]/2 = [8 ± √40]/2 = [8 ± 2√10]/2 = 4 ± √10</span></p>
+                <p>√10 ≈ 3.16</p>
+                <p>x ≈ 4 + 3.16 = 7.16 or x ≈ 4 - 3.16 = 0.84</p>
+                <p>Since x - 2 > 0, x > 2, so x ≈ 7.16 hours</p>
+                <p>The smaller tap takes approximately 7.16 hours.</p>`
+            },
+            {
+                difficulty: "hard",
+                question: "A and B work together for 2 days, then A alone for 1 more day and completes the work. A alone would take 6 days for the whole work. B alone would take how many days?",
+                answer: "4",
+                hint: "A works 3 days total at 1/6 per day = 1/2 work done by A. B worked 2 days, so did the other 1/2. B's rate = (1/2)÷2 = 1/4 per day. So B alone takes 4 days.",
+                explanation: `<p>A alone takes 6 days for whole work.</p>
+                <p>A's work rate = 1/6 of work per day</p>
+                <p>A worked for 3 days (2 with B + 1 alone)</p>
+                <p>Work done by A = 3 × (1/6) = 3/6 = 1/2 of work</p>
+                <p>Remaining work = 1 - 1/2 = 1/2 of work</p>
+                <p>This remaining 1/2 was done entirely by B in 2 days</p>
+                <p>B's work rate = (1/2) ÷ 2 = 1/4 of work per day</p>
+                <p>So B alone would take 4 days for the whole work.</p>
+                <p>The answer is 4 days.</p>`
+            },
+            {
+                difficulty: "medium",
+                question: "The difference between the squares of two consecutive integers is 15. Find the larger integer.",
+                answer: "8",
+                hint: "Let integers be n and n+1. (n+1)² - n² = 15. Expand: (n² + 2n + 1) - n² = 2n + 1 = 15. So 2n = 14, n = 7. Larger is 8.",
+                explanation: `<p>Let the two consecutive integers be n and n+1.</p>
+                <p>Difference of squares = (n+1)² - n² = 15</p>
+                <p><span class="equation">n² + 2n + 1 - n² = 15</span></p>
+                <p><span class="equation">2n + 1 = 15</span></p>
+                <p><span class="equation">2n = 14</span></p>
+                <p><span class="equation">n = 7</span></p>
+                <p>The larger integer is n+1 = 8.</p>
+                <p>Check: 8² - 7² = 64 - 49 = 15 ✓</p>`
+            },
+            {
+                difficulty: "hard",
+                question: "A goldsmith has two alloys. One contains 90% gold and 10% copper. The other contains 95% gold and 5% copper. How much of the 90% alloy must he take to make 20 grams of an alloy containing 93% gold?",
+                answer: "8",
+                hint: "Let x = grams of 90% alloy, 20-x = grams of 95% alloy. Gold: 0.90x + 0.95(20-x) = 0.93 × 20 = 18.6. Solve.",
+                explanation: `<p>Let x grams be taken from the 90% gold alloy.</p>
+                <p>Then (20 - x) grams be taken from the 95% gold alloy.</p>
+                <p>Gold from first alloy = 0.90x grams</p>
+                <p>Gold from second alloy = 0.95(20 - x) grams</p>
+                <p>Total gold needed = 0.93 × 20 = 18.6 grams</p>
+                <p><span class="equation">0.90x + 0.95(20 - x) = 18.6</span></p>
+                <p><span class="equation">0.90x + 19 - 0.95x = 18.6</span></p>
+                <p><span class="equation">-0.05x + 19 = 18.6</span></p>
+                <p><span class="equation">-0.05x = -0.4</span></p>
+                <p><span class="equation">x = (-0.4) / (-0.05) = 8</span></p>
+                <p>He needs 8 grams of the 90% alloy and 12 grams of the 95% alloy.</p>`
+            },
+            {
+                difficulty: "hard",
+                question: "A policeman is 30 meters behind a thief. The policeman runs at 11 m/s and the thief at 9 m/s. How long will it take the policeman to catch the thief?",
+                answer: "15",
+                hint: "Relative speed = 11 - 9 = 2 m/s. Distance = 30 meters. Time = distance/relative speed = 30/2 = 15 seconds.",
+                explanation: `<p>Distance between policeman and thief = 30 meters</p>
+                <p>Policeman's speed = 11 m/s</p>
+                <p>Thief's speed = 9 m/s</p>
+                <p>Relative speed at which policeman closes the gap = 11 - 9 = 2 m/s</p>
+                <p>Time to cover 30 meters at 2 m/s:</p>
+                <p><span class="equation">Time = Distance ÷ Relative Speed</span></p>
+                <p><span class="equation">Time = 30 ÷ 2 = 15 seconds</span></p>
+                <p>It will take the policeman 15 seconds to catch the thief.</p>`
+            },
+            {
+                difficulty: "hard",
+                question: "A man walks from A to B at 4 km/h and returns at 5 km/h. If the total time is 4.5 hours, find the distance AB.",
+                answer: "10",
+                hint: "Let distance be x km. Time to A→B = x/4 hours. Time B→A = x/5 hours. Total: x/4 + x/5 = 4.5.",
+                explanation: `<p>Let the distance AB be x kilometers.</p>
+                <p>Time to walk from A to B = x/4 hours</p>
+                <p>Time to return from B to A = x/5 hours</p>
+                <p>Total time = 4.5 hours</p>
+                <p><span class="equation">x/4 + x/5 = 4.5</span></p>
+                <p>Common denominator 20:</p>
+                <p><span class="equation">5x/20 + 4x/20 = 4.5</span></p>
+                <p><span class="equation">9x/20 = 4.5</span></p>
+                <p><span class="equation">9x = 90</span></p>
+                <p><span class="equation">x = 10</span></p>
+                <p>The distance AB is 10 kilometers.</p>
+                <p>Check: A to B = 10/4 = 2.5 hours, B to A = 10/5 = 2 hours, total = 4.5 hours ✓</p>`
+            },
+            {
+                difficulty: "hard",
+                question: "The product of two numbers is 54 and their sum is 15. Find the larger number.",
+                answer: "9",
+                hint: "Let numbers be x and y. xy = 54, x + y = 15. Then x and y are roots of t² - 15t + 54 = 0.",
+                explanation: `<p>Let the two numbers be x and y.</p>
+                <p>Product: xy = 54</p>
+                <p>Sum: x + y = 15</p>
+                <p>They are roots of the quadratic equation: t² - (sum)t + (product) = 0</p>
+                <p><span class="equation">t² - 15t + 54 = 0</span></p>
+                <p>Factor: (t - 9)(t - 6) = 0</p>
+                <p>t = 9 or t = 6</p>
+                <p>The larger number is 9.</p>
+                <p>Check: 9 × 6 = 54, 9 + 6 = 15 ✓</p>`
+            },
+            {
+                difficulty: "hard",
+                question: "A man bought a certain number of articles for $80. If he had bought 4 more articles for the same money, each would have cost $1 less. How many articles did he buy?",
+                answer: "16",
+                hint: "Let n articles bought at $80. Cost per article = 80/n. With 4 more articles: cost = 80/(n+4) = 80/n - 1.",
+                explanation: `<p>Let n be the number of articles bought.</p>
+                <p>Cost per article = $80/n</p>
+                <p>If he bought 4 more articles (n + 4) for $80:</p>
+                <p>Cost per article would be $80/(n + 4)</p>
+                <p>This would be $1 less than the original price:</p>
+                <p><span class="equation">80/(n + 4) = 80/n - 1</span></p>
+                <p><span class="equation">80/(n + 4) = (80 - n)/n</span></p>
+                <p>Cross multiply:</p>
+                <p><span class="equation">80n = (80 - n)(n + 4)</span></p>
+                <p><span class="equation">80n = 80n + 320 - n² - 4n</span></p>
+                <p><span class="equation">0 = 320 - n² - 4n</span></p>
+                <p><span class="equation">n² + 4n - 320 = 0</span></p>
+                <p><span class="equation">(n + 20)(n - 16) = 0</span></p>
+                <p>n = 16 (since n > 0)</p>
+                <p>He bought 16 articles.</p>
+                <p>Check: Cost per article = 80/16 = $5</p>
+                <p>With 4 more (20 articles): 80/20 = $4 = $5 - $1 ✓</p>`
+            },
+            {
+                difficulty: "hard",
+                question: "A and B can do a job in 6 days. B and C can do it in 8 days. A and C can do it in 12 days. How many days would A, B, and C together take?",
+                answer: "5.33",
+                hint: "Let a, b, c be daily rates. a + b = 1/6, b + c = 1/8, a + c = 1/12. Add all: 2(a+b+c) = 1/6 + 1/8 + 1/12 = 4/24 + 3/24 + 2/24 = 9/24 = 3/8. So a+b+c = 3/16. Time = 16/3 ≈ 5.33 days.",
+                explanation: `<p>Let a, b, c be the fractions of the job done by A, B, C respectively per day.</p>
+                <p>A + B = 1/6 (job per day)</p>
+                <p>B + C = 1/8 (job per day)</p>
+                <p>A + C = 1/12 (job per day)</p>
+                <p>Add all three equations:</p>
+                <p>2a + 2b + 2c = 1/6 + 1/8 + 1/12</p>
+                <p>2(a + b + c) = 4/24 + 3/24 + 2/24 = 9/24 = 3/8</p>
+                <p><span class="equation">a + b + c = 3/16</span></p>
+                <p>Together, they do 3/16 of the job per day.</p>
+                <p>Time to complete one job = 1 ÷ (3/16) = 16/3 ≈ 5.33 days.</p>`
+            },
+            {
+                difficulty: "hard",
+                question: "The denominator of a fraction exceeds the numerator by 3. If the numerator is doubled and the denominator is increased by 30, the value of the fraction becomes 1/5. Find the fraction.",
+                answer: "11/20",
+                hint: "Let numerator be x. Denominator = x + 3. New fraction: 2x/(x+3+30) = 2x/(x+33) = 1/5. So 10x = x + 33, 9x = 33, x = 33/9 = 11/3.",
+                explanation: `<p>Let the numerator be x.</p>
+                <p>Then the denominator is x + 3.</p>
+                <p>Original fraction = x/(x + 3)</p>
+                <p>After changes: numerator = 2x, denominator = x + 3 + 30 = x + 33</p>
+                <p>New fraction = 2x/(x + 33) = 1/5</p>
+                <p><span class="equation">2x/(x + 33) = 1/5</span></p>
+                <p><span class="equation">5 × 2x = 1 × (x + 33)</span></p>
+                <p><span class="equation">10x = x + 33</span></p>
+                <p><span class="equation">9x = 33</span></p>
+                <p><span class="equation">x = 33/9 = 11/3</span></p>
+                <p>Original fraction = (11/3)/(11/3 + 3) = (11/3)/(20/3) = 11/20</p>
+                <p>The fraction is 11/20.</p>
+                <p>Check: New numerator = 22/3, new denominator = 11/3 + 33 = 110/3</p>
+                <p>New fraction = (22/3)/(110/3) = 22/110 = 1/5 ✓</p>`
+            },
+            {
+                difficulty: "hard",
+                question: "A train 150 meters long passes a pole in 10 seconds. Find its speed in km/h.",
+                answer: "54",
+                hint: "To pass a pole, train covers its own length (150m) in 10 seconds. Speed = 150/10 = 15 m/s. Convert to km/h: 15 × 3.6 = 54 km/h.",
+                explanation: `<p>To pass a pole, a train must cover its own length.</p>
+                <p>Length of train = 150 meters</p>
+                <p>Time taken = 10 seconds</p>
+                <p>Speed = Distance ÷ Time = 150 ÷ 10 = 15 meters per second</p>
+                <p>Convert to km/h:</p>
+                <p>1 m/s = 3.6 km/h</p>
+                <p><span class="equation">15 m/s × 3.6 = 54 km/h</span></p>
+                <p>The train's speed is 54 km/h.</p>`
+            },
+            {
+                difficulty: "hard",
+                question: "A man buys 5 oranges and 3 apples for $2.50. If an orange costs $0.10 more than an apple, find the cost of one apple.",
+                answer: "0.25",
+                hint: "Let apple cost x dollars. Orange costs x + 0.10. 5(x+0.10) + 3x = 2.50.",
+                explanation: `<p>Let the cost of one apple be $x.</p>
+                <p>Then the cost of one orange is $(x + 0.10).</p>
+                <p>Cost of 5 oranges = 5(x + 0.10) = 5x + 0.50</p>
+                <p>Cost of 3 apples = 3x</p>
+                <p>Total cost = $2.50</p>
+                <p><span class="equation">5x + 0.50 + 3x = 2.50</span></p>
+                <p><span class="equation">8x + 0.50 = 2.50</span></p>
+                <p><span class="equation">8x = 2.00</span></p>
+                <p><span class="equation">x = 2.00 ÷ 8 = 0.25</span></p>
+                <p>One apple costs $0.25 (25 cents).</p>
+                <p>Check: Apple = $0.25, Orange = $0.35</p>
+                <p>5 oranges = 5 × 0.35 = $1.75</p>
+                <p>3 apples = 3 × 0.25 = $0.75</p>
+                <p>Total = $1.75 + $0.75 = $2.50 ✓</p>`
+            },
+            {
+                difficulty: "hard",
+                question: "The ages of three persons are in the ratio 3:4:5. The sum of their ages is 72 years. Find the age of the youngest.",
+                answer: "18",
+                hint: "Let ages be 3x, 4x, 5x. Sum: 3x + 4x + 5x = 12x = 72. So x = 6. Youngest = 3x = 18.",
+                explanation: `<p>Let the ages be 3x, 4x, and 5x years.</p>
+                <p>Sum of ages = 3x + 4x + 5x = 12x</p>
+                <p><span class="equation">12x = 72</span></p>
+                <p><span class="equation">x = 72 ÷ 12 = 6</span></p>
+                <p>The ages are: 3 × 6 = 18, 4 × 6 = 24, 5 × 6 = 30 years.</p>
+                <p>The youngest person is 18 years old.</p>
+                <p>Check: 18 + 24 + 30 = 72 ✓</p>`
+            }
+        ];
+
+        let currentQuestion = 0;
+        let score = 0;
+        let correctCount = 0;
+        let streak = 0;
+        let answered = false;
+
+        const questionCard = document.getElementById('questionCard');
+        const questionNumber = document.getElementById('questionNumber');
+        const difficultyBadge = document.getElementById('difficultyBadge');
+        const questionText = document.getElementById('questionText');
+        const answerInput = document.getElementById('answerInput');
+        const submitBtn = document.getElementById('submitBtn');
+        const hintToggle = document.getElementById('hintToggle');
+        const hintDiv = document.getElementById('hint');
+        const feedback = document.getElementById('feedback');
+        const feedbackIcon = document.getElementById('feedbackIcon');
+        const feedbackTitle = document.getElementById('feedbackTitle');
+        const yourAnswer = document.getElementById('yourAnswer');
+        const correctAnswerDiv = document.getElementById('correctAnswer');
+        const explanation = document.getElementById('explanation');
+        const nextBtn = document.getElementById('nextBtn');
+        const resultsCard = document.getElementById('resultsCard');
+        const quizContainer = document.getElementById('quizContainer');
+        const currentQuestionSpan = document.getElementById('currentQuestion');
+        const progressFill = document.getElementById('progressFill');
+        const progressPercent = document.getElementById('progressPercent');
+        const currentScoreEl = document.getElementById('currentScore');
+        const correctCountEl = document.getElementById('correctCount');
+        const streakCountEl = document.getElementById('streakCount');
+        const finalScore = document.getElementById('finalScore');
+        const resultsDetails = document.getElementById('resultsDetails');
+        const gradeEl = document.getElementById('grade');
+        const encouragement = document.getElementById('encouragement');
+        const restartBtn = document.getElementById('restartBtn');
+
+        function loadQuestion() {
+            const problem = problems[currentQuestion];
+            questionNumber.textContent = `Question ${currentQuestion + 1}`;
+            difficultyBadge.textContent = problem.difficulty.charAt(0).toUpperCase() + problem.difficulty.slice(1);
+            difficultyBadge.className = `difficulty-badge difficulty-${problem.difficulty}`;
+            questionText.textContent = problem.question;
+            answerInput.value = '';
+            answerInput.className = 'answer-input';
+            answerInput.disabled = false;
+            submitBtn.disabled = false;
+            feedback.className = 'feedback';
+            hintDiv.textContent = problem.hint;
+            hintDiv.className = 'hint';
+            answered = false;
+            
+            currentQuestionSpan.textContent = currentQuestion + 1;
+            progressFill.style.width = `${((currentQuestion) / problems.length) * 100}%`;
+            progressPercent.textContent = `${Math.round((currentQuestion / problems.length) * 100)}%`;
+        }
+
+        function checkAnswer() {
+            if (answered) return;
+            answered = true;
+
+            const problem = problems[currentQuestion];
+            const userAnswer = answerInput.value.trim();
+            const correctAnswer = problem.answer;
+
+            // Normalize answers for comparison
+            const normalizeAnswer = (ans) => {
+                // Handle fractions like 3/6 -> 1/2
+                if (ans.includes('/')) {
+                    const [num, den] = ans.split('/').map(Number);
+                    if (den !== 0) {
+                        const gcd = (a, b) => b === 0 ? a : gcd(b, a % b);
+                        const common = gcd(num, den);
+                        return `${num/common}/${den/common}`;
+                    }
+                }
+                // Convert decimal to fraction if exact
+                const num = parseFloat(ans);
+                if (!isNaN(num)) {
+                    // Check if it's a whole number
+                    if (Number.isInteger(num)) return String(num);
+                }
+                return ans;
+            };
+
+            const userNormalized = normalizeAnswer(userAnswer);
+            const correctNormalized = normalizeAnswer(correctAnswer);
+
+            const isCorrect = userNormalized === correctNormalized || 
+                             parseFloat(userAnswer) === parseFloat(correctAnswer);
+
+            if (isCorrect) {
+                score++;
+                correctCount++;
+                streak++;
+                answerInput.className = 'answer-input correct';
+                feedbackIcon.textContent = '✓';
+                feedbackTitle.textContent = 'Correct!';
+                feedback.className = 'feedback show correct';
+                questionCard.className = 'question-card correct';
+            } else {
+                streak = 0;
+                answerInput.className = 'answer-input incorrect';
+                feedbackIcon.textContent = '✗';
+                feedbackTitle.textContent = 'Incorrect';
+                feedback.className = 'feedback show incorrect';
+                questionCard.className = 'question-card incorrect';
+            }
+
+            yourAnswer.innerHTML = `<strong>Your answer:</strong> <span>${userAnswer || '(no answer)'}</span>`;
+            correctAnswerDiv.innerHTML = `<strong>Correct answer:</strong> <span>${correctAnswer}</span>`;
+            explanation.innerHTML = problem.explanation;
+
+            answerInput.disabled = true;
+            submitBtn.disabled = true;
+
+            updateStats();
+        }
+
+        function updateStats() {
+            currentScoreEl.textContent = score;
+            correctCountEl.textContent = correctCount;
+            streakCountEl.textContent = streak;
+        }
+
+        function nextQuestion() {
+            currentQuestion++;
+            if (currentQuestion >= problems.length) {
+                showResults();
+            } else {
+                loadQuestion();
+            }
+        }
+
+        function showResults() {
+            quizContainer.style.display = 'none';
+            resultsCard.classList.add('show');
+
+            const percentage = (score / problems.length) * 100;
+            finalScore.textContent = `${score}/${problems.length}`;
+            
+            resultsDetails.innerHTML = `
+                <p>You answered ${correctCount} out of ${problems.length} questions correctly.</p>
+                <p>Your score: ${percentage.toFixed(1)}%</p>
+            `;
+
+            let grade, gradeClass, encouragements;
+
+            if (percentage >= 90) {
+                grade = 'A';
+                gradeClass = 'grade-a';
+                encouragements = "Excellent! You've mastered algebraic word problems!";
+            } else if (percentage >= 75) {
+                grade = 'B';
+                gradeClass = 'grade-b';
+                encouragements = "Great work! Keep practicing to achieve perfection!";
+            } else if (percentage >= 60) {
+                grade = 'C';
+                gradeClass = 'grade-c';
+                encouragements = "Good effort! Review the problems you missed and try again.";
+            } else {
+                grade = 'D';
+                gradeClass = 'grade-d';
+                encouragements = "Keep studying! Practice makes perfect.";
+            }
+
+            gradeEl.textContent = grade;
+            gradeEl.className = `grade ${gradeClass}`;
+            encouragement.textContent = encouragements;
+
+            progressFill.style.width = '100%';
+            progressPercent.textContent = '100%';
+        }
+
+        function restart() {
+            currentQuestion = 0;
+            score = 0;
+            correctCount = 0;
+            streak = 0;
+            updateStats();
+            quizContainer.style.display = 'block';
+            resultsCard.classList.remove('show');
+            loadQuestion();
+        }
+
+        // Event listeners
+        submitBtn.addEventListener('click', checkAnswer);
+        answerInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') checkAnswer();
+        });
+        hintToggle.addEventListener('click', () => {
+            hintDiv.classList.toggle('show');
+        });
+        nextBtn.addEventListener('click', nextQuestion);
+        restartBtn.addEventListener('click', restart);
+
+        // Initialize
+        loadQuestion();
+    </script>
+</body>
+</html>

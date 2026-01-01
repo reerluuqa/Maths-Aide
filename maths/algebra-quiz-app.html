@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Algebra Practice Quiz</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            max-width: 700px;
+            width: 100%;
+            padding: 40px;
+        }
+
+        h1 {
+            color: #667eea;
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 2.2em;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: #e0e0e0;
+            border-radius: 10px;
+            margin: 20px 0;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+            border-radius: 10px;
+            transition: width 0.3s ease;
+        }
+
+        .question-counter {
+            text-align: center;
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 1.1em;
+        }
+
+        .question-box {
+            background: #f8f9ff;
+            border-left: 4px solid #667eea;
+            padding: 25px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+        }
+
+        .question-text {
+            font-size: 1.3em;
+            color: #333;
+            line-height: 1.6;
+            margin-bottom: 10px;
+        }
+
+        .answer-input {
+            width: 100%;
+            padding: 15px;
+            font-size: 1.2em;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            transition: border-color 0.3s;
+        }
+
+        .answer-input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 1.1em;
+            border-radius: 10px;
+            cursor: pointer;
+            width: 100%;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .feedback {
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            display: none;
+            animation: slideIn 0.3s ease;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .feedback.correct {
+            background: #d4edda;
+            border-left: 4px solid #28a745;
+            color: #155724;
+        }
+
+        .feedback.incorrect {
+            background: #f8d7da;
+            border-left: 4px solid #dc3545;
+            color: #721c24;
+        }
+
+        .feedback-title {
+            font-weight: bold;
+            font-size: 1.2em;
+            margin-bottom: 10px;
+        }
+
+        .explanation {
+            line-height: 1.6;
+            margin-top: 10px;
+        }
+
+        .score-display {
+            text-align: center;
+            font-size: 1.2em;
+            color: #666;
+            margin-bottom: 20px;
+        }
+
+        .final-screen {
+            text-align: center;
+            display: none;
+        }
+
+        .final-score {
+            font-size: 3em;
+            color: #667eea;
+            margin: 30px 0;
+            font-weight: bold;
+        }
+
+        .percentage {
+            font-size: 1.5em;
+            color: #666;
+            margin-bottom: 30px;
+        }
+
+        .restart-btn {
+            background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📐 Algebra Practice</h1>
+        
+        <div id="quiz-screen">
+            <div class="progress-bar">
+                <div class="progress-fill" id="progress"></div>
+            </div>
+            
+            <div class="question-counter" id="counter">Question 1 of 25</div>
+            <div class="score-display" id="score">Score: 0/0</div>
+            
+            <div class="question-box">
+                <div class="question-text" id="question"></div>
+            </div>
+            
+            <div class="feedback" id="feedback">
+                <div class="feedback-title" id="feedback-title"></div>
+                <div class="explanation" id="explanation"></div>
+            </div>
+            
+            <input type="text" class="answer-input" id="answer" placeholder="Enter your answer">
+            <button class="btn" id="submit-btn" onclick="checkAnswer()">Submit Answer</button>
+        </div>
+
+        <div class="final-screen" id="final-screen">
+            <h2>Quiz Complete! 🎉</h2>
+            <div class="final-score" id="final-score"></div>
+            <div class="percentage" id="percentage"></div>
+            <button class="btn restart-btn" onclick="restartQuiz()">Try Again</button>
+        </div>
+    </div>
+
+    <script>
+        const questions = [
+            {
+                q: "Simplify: 3x + 5x",
+                a: "8x",
+                exp: "To simplify, combine like terms. Since both terms contain x, add the coefficients: 3 + 5 = 8. Therefore, 3x + 5x = 8x."
+            },
+            {
+                q: "Solve for x: x + 7 = 12",
+                a: "5",
+                exp: "To solve for x, subtract 7 from both sides: x + 7 - 7 = 12 - 7, which gives x = 5."
+            },
+            {
+                q: "Simplify: 4a - 2a + 3a",
+                a: "5a",
+                exp: "Combine like terms: 4a - 2a + 3a = (4 - 2 + 3)a = 5a."
+            },
+            {
+                q: "Solve for y: 2y = 18",
+                a: "9",
+                exp: "To isolate y, divide both sides by 2: 2y ÷ 2 = 18 ÷ 2, which gives y = 9."
+            },
+            {
+                q: "Expand: 3(x + 4)",
+                a: "3x+12",
+                exp: "Multiply each term inside the brackets by 3: 3 × x = 3x and 3 × 4 = 12. Therefore, 3(x + 4) = 3x + 12."
+            },
+            {
+                q: "Solve for x: x - 5 = 8",
+                a: "13",
+                exp: "To solve for x, add 5 to both sides: x - 5 + 5 = 8 + 5, which gives x = 13."
+            },
+            {
+                q: "Simplify: 7m - 3m",
+                a: "4m",
+                exp: "Subtract the coefficients of like terms: 7m - 3m = (7 - 3)m = 4m."
+            },
+            {
+                q: "Solve for n: 3n = 21",
+                a: "7",
+                exp: "Divide both sides by 3: 3n ÷ 3 = 21 ÷ 3, giving n = 7."
+            },
+            {
+                q: "Expand: 5(2x - 1)",
+                a: "10x-5",
+                exp: "Multiply each term in the brackets by 5: 5 × 2x = 10x and 5 × (-1) = -5. Therefore, 5(2x - 1) = 10x - 5."
+            },
+            {
+                q: "Solve for x: x/4 = 3",
+                a: "12",
+                exp: "To isolate x, multiply both sides by 4: (x/4) × 4 = 3 × 4, which gives x = 12."
+            },
+            {
+                q: "Simplify: 6p + 2p - 3p",
+                a: "5p",
+                exp: "Combine like terms: 6p + 2p - 3p = (6 + 2 - 3)p = 5p."
+            },
+            {
+                q: "Solve for x: 2x + 3 = 11",
+                a: "4",
+                exp: "First subtract 3 from both sides: 2x = 8. Then divide by 2: x = 4."
+            },
+            {
+                q: "Expand: 4(x + 3)",
+                a: "4x+12",
+                exp: "Distribute 4 to each term: 4 × x = 4x and 4 × 3 = 12. So 4(x + 3) = 4x + 12."
+            },
+            {
+                q: "Solve for y: y/5 = 2",
+                a: "10",
+                exp: "Multiply both sides by 5: (y/5) × 5 = 2 × 5, giving y = 10."
+            },
+            {
+                q: "Simplify: 8k - 5k + k",
+                a: "4k",
+                exp: "Combine like terms: 8k - 5k + k = (8 - 5 + 1)k = 4k."
+            },
+            {
+                q: "Solve for x: 3x - 4 = 8",
+                a: "4",
+                exp: "Add 4 to both sides: 3x = 12. Then divide by 3: x = 4."
+            },
+            {
+                q: "Expand: 2(3x + 5)",
+                a: "6x+10",
+                exp: "Multiply each term by 2: 2 × 3x = 6x and 2 × 5 = 10. Therefore, 2(3x + 5) = 6x + 10."
+            },
+            {
+                q: "Solve for a: a + 9 = 15",
+                a: "6",
+                exp: "Subtract 9 from both sides: a = 15 - 9 = 6."
+            },
+            {
+                q: "Simplify: 5t + 3t - 2t",
+                a: "6t",
+                exp: "Combine like terms: (5 + 3 - 2)t = 6t."
+            },
+            {
+                q: "Solve for x: 4x = 32",
+                a: "8",
+                exp: "Divide both sides by 4: x = 32 ÷ 4 = 8."
+            },
+            {
+                q: "Expand: 6(x - 2)",
+                a: "6x-12",
+                exp: "Distribute 6: 6 × x = 6x and 6 × (-2) = -12. So 6(x - 2) = 6x - 12."
+            },
+            {
+                q: "Solve for b: b - 8 = 3",
+                a: "11",
+                exp: "Add 8 to both sides: b = 3 + 8 = 11."
+            },
+            {
+                q: "Simplify: 9w - 4w + 2w",
+                a: "7w",
+                exp: "Combine like terms: (9 - 4 + 2)w = 7w."
+            },
+            {
+                q: "Solve for x: x/3 = 5",
+                a: "15",
+                exp: "Multiply both sides by 3: x = 5 × 3 = 15."
+            },
+            {
+                q: "Solve for x: 5x + 2 = 17",
+                a: "3",
+                exp: "Subtract 2 from both sides: 5x = 15. Then divide by 5: x = 3."
+            }
+        ];
+
+        let currentQ = 0;
+        let score = 0;
+        let answered = false;
+
+        function normalize(str) {
+            return str.toLowerCase().replace(/\s+/g, '');
+        }
+
+        function loadQuestion() {
+            answered = false;
+            document.getElementById('question').textContent = questions[currentQ].q;
+            document.getElementById('answer').value = '';
+            document.getElementById('feedback').style.display = 'none';
+            document.getElementById('submit-btn').textContent = 'Submit Answer';
+            document.getElementById('counter').textContent = `Question ${currentQ + 1} of ${questions.length}`;
+            document.getElementById('score').textContent = `Score: ${score}/${currentQ}`;
+            
+            const progress = ((currentQ) / questions.length) * 100;
+            document.getElementById('progress').style.width = progress + '%';
+        }
+
+        function checkAnswer() {
+            if (answered) {
+                currentQ++;
+                if (currentQ < questions.length) {
+                    loadQuestion();
+                } else {
+                    showFinalScreen();
+                }
+                return;
+            }
+
+            const userAnswer = normalize(document.getElementById('answer').value);
+            const correctAnswer = normalize(questions[currentQ].a);
+            const feedback = document.getElementById('feedback');
+            const feedbackTitle = document.getElementById('feedback-title');
+            const explanation = document.getElementById('explanation');
+
+            if (userAnswer === correctAnswer) {
+                score++;
+                feedback.className = 'feedback correct';
+                feedbackTitle.textContent = '✓ Correct!';
+                explanation.textContent = questions[currentQ].exp;
+            } else {
+                feedback.className = 'feedback incorrect';
+                feedbackTitle.textContent = '✗ Incorrect';
+                explanation.innerHTML = `<strong>Correct answer: ${questions[currentQ].a}</strong><br><br>${questions[currentQ].exp}`;
+            }
+
+            feedback.style.display = 'block';
+            answered = true;
+            document.getElementById('submit-btn').textContent = currentQ < questions.length - 1 ? 'Next Question →' : 'See Results';
+            document.getElementById('score').textContent = `Score: ${score}/${currentQ + 1}`;
+        }
+
+        function showFinalScreen() {
+            document.getElementById('quiz-screen').style.display = 'none';
+            document.getElementById('final-screen').style.display = 'block';
+            document.getElementById('final-score').textContent = `${score} / ${questions.length}`;
+            const percentage = Math.round((score / questions.length) * 100);
+            document.getElementById('percentage').textContent = `${percentage}% Correct`;
+        }
+
+        function restartQuiz() {
+            currentQ = 0;
+            score = 0;
+            document.getElementById('quiz-screen').style.display = 'block';
+            document.getElementById('final-screen').style.display = 'none';
+            loadQuestion();
+        }
+
+        document.getElementById('answer').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                checkAnswer();
+            }
+        });
+
+        loadQuestion();
+    </script>
+</body>
+</html>
